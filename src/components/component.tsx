@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-// Define types for campaign data
 interface Campaign {
   title: string;
   description: string;
@@ -21,35 +20,28 @@ interface Campaign {
   timeLeft: number;
 }
 
-// Main Component
 export function Component() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const response = await fetch('/api/campaigns');
+        const data = await response.json();
+        console.log("data")
+        console.log(data)
+        setCampaigns(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching campaigns:', error);
+      }
+    };
+
+    fetchCampaigns();
+  }, []);
+
   const [showCampaignDetails, setShowCampaignDetails] = useState<boolean>(false);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [btcAmount, setBtcAmount] = useState<number>(0);
-
-  const campaigns: Campaign[] = [
-    {
-      title: "New Eco-Friendly Backpack",
-      description: "Help us create a sustainable backpack made from recycled materials.",
-      fundingGoal: 5000,
-      raised: 2500,
-      timeLeft: 30,
-    },
-    {
-      title: "Innovative Smart Home Device",
-      description: "Help us bring our cutting-edge smart home device to life.",
-      fundingGoal: 10000,
-      raised: 7500,
-      timeLeft: 45,
-    },
-    {
-      title: "Sustainable Clothing Line",
-      description: "Help us launch our new eco-friendly clothing line.",
-      fundingGoal: 15000,
-      raised: 12000,
-      timeLeft: 60,
-    },
-  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -226,7 +218,6 @@ export function Component() {
   );
 }
 
-// Icon components
 const CoinsIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
@@ -299,4 +290,5 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="m6 6 12 12" />
   </svg>
 );
+
 export default Component;
