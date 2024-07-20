@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-// Define types for campaign data
+
 interface Campaign {
   title: string;
   description: string;
@@ -23,10 +23,17 @@ interface Campaign {
 
 // Main Component
 export function Component() {
+  const [isMounted, setIsMounted] = useState(false);
   const [showCampaignDetails, setShowCampaignDetails] = useState<boolean>(false);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
-  const [btcAmount, setBtcAmount] = useState<number>(0);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
+  if (!isMounted) {
+    return null; // or a loading indicator
+  }
   const campaigns: Campaign[] = [
     {
       title: "New Eco-Friendly Backpack",
@@ -146,12 +153,13 @@ export function Component() {
                   >
                     View Campaign
                   </Button>
-                  <Button
-                    onClick={() => setBtcAmount(1)}
+                  <a href="/submit"><Button
+                    
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                   >
                     Contribute
                   </Button>
+                  </a>
                 </CardFooter>
               </Card>
             ))}
@@ -189,13 +197,13 @@ export function Component() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Button
-                    onClick={() => setBtcAmount(1)}
+                  <a href="/submit"><Button
+                    
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                   >
                     Contribute
                   </Button>
-                  {btcAmount > 0 && <div className="text-muted-foreground">Contribute {btcAmount} BTC</div>}
+                  </a>
                 </div>
               </div>
             </div>
