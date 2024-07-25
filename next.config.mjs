@@ -5,6 +5,7 @@ export default {
         asyncWebAssembly: true,
         syncWebAssembly: true,
         layers: true, // Enable layers experiment
+        topLevelAwait: true,
       };
   
       config.module.rules.push({

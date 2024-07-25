@@ -20,9 +20,9 @@ type EvmWalletAction = {
 };
 
 const networkConfig = {
-  chainId: "0x7A69",
-  chainName: "ethereum localnet",
-  rpcUrls: ["http://localhost:8545"],
+  chainId: "0xAA36A7",
+  chainName: "Sepolia test network",
+  rpcUrls: ["http://localhost:5050/tx/7904145fa2873e5634a5d2aebc66c33bc71a5ec0c98fcaa6a910d658abf88620"],
   nativeCurrency: {
     name: "Ethereum",
     symbol: "ETH",

@@ -19,6 +19,7 @@ interface Campaign {
   fundingGoal: number;
   raised: number;
   timeLeft: number;
+  address: string;
 }
 
 // Main Component
@@ -41,6 +42,7 @@ export function Component() {
       fundingGoal: 5000,
       raised: 2500,
       timeLeft: 30,
+      address:"oajnsiufbisdzffijjniufvodxinvieunnisndx",
     },
     {
       title: "Innovative Smart Home Device",
@@ -48,6 +50,7 @@ export function Component() {
       fundingGoal: 10000,
       raised: 7500,
       timeLeft: 45,
+      address:"oajnsiufbisdzffijjniufvodxinvieunnisndx",
     },
     {
       title: "Sustainable Clothing Line",
@@ -55,6 +58,7 @@ export function Component() {
       fundingGoal: 15000,
       raised: 12000,
       timeLeft: 60,
+      address:"oajnsiufbisdzffijjniufvodxinvieunnisndx",
     },
   ];
 
@@ -153,14 +157,18 @@ export function Component() {
                   >
                     View Campaign
                   </Button>
-                  <a href="/submit"><Button
-                    
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                  <Link
+                    href={`/submit?title=${encodeURIComponent(campaign.address)}`}
+                    passHref
                   >
-                    Contribute
-                  </Button>
-                  </a>
+                    <Button
+                      className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Contribute
+                    </Button>
+                  </Link>
                 </CardFooter>
+
               </Card>
             ))}
           </div>
