@@ -36,7 +36,7 @@ const useMetaMaskStore = create<EvmWalletState & EvmWalletAction>((set) => ({
   connectMetaMask: async () => {
     if (window.ethereum !== null) {
       let provider = new BrowserProvider(window.ethereum);
-      let network = await provider.getNetwork();
+      const network = await provider.getNetwork();
       if (network.chainId !== 31337n) {
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
@@ -98,7 +98,6 @@ const useGarden = () => ({
   bitcoin: gardenStore((state) => state.bitcoin),
 });
 
-/* Only to be used once at the root level*/
 const useGardenSetup = () => {
   const { evmProvider } = useMetaMaskStore();
   const { setGarden } = gardenStore();
@@ -117,8 +116,7 @@ const useGardenSetup = () => {
         url: "http://localhost:8080",
         signer: signer,
         opts: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          domain: (window as any).location.host,
+          domain: window.location.host,
           store: localStorage,
         },
       });

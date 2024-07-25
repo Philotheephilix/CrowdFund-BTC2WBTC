@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { useState } from "react";
 import { useMetaMaskStore, useGarden, useSignStore } from "./store";
 import { Assets } from "@gardenfi/orderbook";
 import "./css/global.css";
@@ -14,8 +16,6 @@ type SwapComponentProps = {
 };
 
 const SwapComponent: React.FC<SwapComponentProps> = ({ address }) => {
-  const router = useRouter();
-  console.log(address);
   const [amount, setAmount] = useState<AmountState>({
     btcAmount: null,
     wbtcAmount: null,

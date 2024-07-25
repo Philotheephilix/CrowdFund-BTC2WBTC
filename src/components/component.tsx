@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-
 interface Campaign {
   title: string;
   description: string;
@@ -22,7 +22,6 @@ interface Campaign {
   address: string;
 }
 
-// Main Component
 export function Component() {
   const [isMounted, setIsMounted] = useState(false);
   const [showCampaignDetails, setShowCampaignDetails] = useState<boolean>(false);
@@ -33,8 +32,9 @@ export function Component() {
   }, []);
 
   if (!isMounted) {
-    return null; // or a loading indicator
+    return null;
   }
+
   const campaigns: Campaign[] = [
     {
       title: "New Eco-Friendly Backpack",
@@ -60,12 +60,13 @@ export function Component() {
       timeLeft: 60,
       address:"oajnsiufbisdzffijjniufvodxinvieunnisndx",
     },
+    // ... other campaigns ...
   ];
 
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
-        <Link href="#" className="flex items-center gap-2 text-lg font-bold" prefetch={false}>
+        <Link href="#" className="flex items-center gap-2 text-lg font-bold">
           <CoinsIcon className="w-6 h-6" />
           Crowdfund
         </Link>
@@ -73,7 +74,6 @@ export function Component() {
           <Link
             href="#"
             className="inline-flex h-9 items-center justify-center rounded-md bg-primary-foreground px-4 py-2 text-sm font-medium text-primary shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-            prefetch={false}
           >
             Create Campaign
           </Link>
@@ -105,13 +105,12 @@ export function Component() {
         <section className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">Active Campaigns</h1>
-
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {campaigns.map((campaign, index) => (
               <Card key={index}>
                 <CardHeader>
-                  <img
+                  <Image
                     src="/assets/sample.png"
                     width={400}
                     height={225}
@@ -162,18 +161,17 @@ export function Component() {
                     </Button>
                   </Link>
                 </CardFooter>
-
               </Card>
             ))}
           </div>
         </section>
       </main>
       {showCampaignDetails && selectedCampaign && (
-        <Dialog>
+        <Dialog open={showCampaignDetails} onOpenChange={setShowCampaignDetails}>
           <DialogContent className="sm:max-w-[800px] w-full p-4 md:p-6">
             <div className="grid gap-6">
               <div>
-                <img
+                <Image
                   src="/placeholder.svg"
                   width={800}
                   height={450}
@@ -199,35 +197,33 @@ export function Component() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <a href="/submit"><Button
-                    
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    Contribute
-                  </Button>
-                  </a>
+                  <Link href="/submit">
+                    <Button
+                      className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Contribute
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
-            <div>
-              <Button variant="ghost" size="icon" className="absolute top-4 right-4" onClick={() => setShowCampaignDetails(false)}>
-                <XIcon className="h-4 w-4" />
-                <span className="sr-only">Close</span>
-              </Button>
-            </div>
+            <Button variant="ghost" size="icon" className="absolute top-4 right-4" onClick={() => setShowCampaignDetails(false)}>
+              <XIcon className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </Button>
           </DialogContent>
         </Dialog>
       )}
       <footer className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <p className="text-sm">&copy; 2024 Crowdfund</p>
         <nav className="flex items-center gap-4">
-          <Link href="#" className="text-sm hover:underline" prefetch={false}>
+          <Link href="#" className="text-sm hover:underline">
             Contact
           </Link>
-          <Link href="#" className="text-sm hover:underline" prefetch={false}>
+          <Link href="#" className="text-sm hover:underline">
             Privacy
           </Link>
-          <Link href="#" className="text-sm hover:underline" prefetch={false}>
+          <Link href="#" className="text-sm hover:underline">
             Terms
           </Link>
         </nav>
@@ -236,7 +232,9 @@ export function Component() {
   );
 }
 
-// Icon components
+
+export default Component;
+
 const CoinsIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
@@ -309,4 +307,3 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="m6 6 12 12" />
   </svg>
 );
-export default Component;
