@@ -105,20 +105,14 @@ export function Component() {
         <section className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">Active Campaigns</h1>
-            <Link
-              href="#"
-              className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-              prefetch={false}
-            >
-              View Dashboard
-            </Link>
+
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {campaigns.map((campaign, index) => (
               <Card key={index}>
                 <CardHeader>
                   <img
-                    src="/placeholder.svg"
+                    src="/assets/sample.png"
                     width={400}
                     height={225}
                     alt="Campaign Image"
